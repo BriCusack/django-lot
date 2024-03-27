@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from django.db import models
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext as _
 
 try:
     from django.contrib.auth import get_user_model
