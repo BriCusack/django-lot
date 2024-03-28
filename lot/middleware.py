@@ -40,44 +40,8 @@ class LOTMiddleware(object):
                 lot.delete()
 
 
-class LOTAuthenticationMiddleware:
+class LOTAuthenticationMiddleware(object):
     '''Authenticate using a Header'''
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        # Incorporate your existing authentication logic
-        try:
-            token = request.META['HTTP_X_AUTH_TOKEN']
-        except KeyError:
-            return None  # No token, continue without authentication
-
-        if not uuidRegex.match(token):
-            return None  # Invalid token format
-
-        try:
-            lot = LOT.objects.select_related('user').get(uuid=token)
-        except LOT.DoesNotExist:
-            return None  # Token doesn't match a valid LOT
-
-        if not lot.verify():
-            if lot.delete_on_fail():
-                lot.delete()
-            return None  # LOT verification failed
-
-        request.user = lot.user  # Authenticate the user
-
-        try:
-            session_data = json.loads(lot.session_data)
-            request.session.update(session_data)
-        except json.JSONDecodeError:  # Handle potential errors
-            pass  # Ignore if session_data is invalid
-
-        if lot.is_one_time():
-            lot.delete()
-
-        return self.get_response(request)  
-
     def process_request(self, request):
         try:
             token = request.META['HTTP_X_AUTH_TOKEN']
