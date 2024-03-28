@@ -1,6 +1,6 @@
 language: python
 python:
-  - "2.7"
+  - "3.9"
 install:
   - pip install -e . --use-mirrors
   - pip install coveralls --use-mirrors
@@ -9,7 +9,7 @@ script:
 notifications:
   email:
     recipients:
-      - jespinog@gmail.com
+      - bcusack78@gmail.com
     on_success: change
     on_failure: change
 after_success:

@@ -19,15 +19,15 @@ setup(
         "lot.migrations",
     ],
     description = description.strip(),
-    install_requires=['django >= 1.3.0', 'simplejson >= 3.3.0'],
+    install_requires=['django >= 4.2.11', 'simplejson >= 3.19.2'],
     setup_requires = [
-        'versiontools >= 1.8',
+        'versiontools >= 1.9.1',
     ],
     zip_safe=False,
     include_package_data = False,
     package_data = {},
     test_suite = 'nose.collector',
-    tests_require = ['nose >= 1.2.1', 'django >= 1.3.0'],
+    tests_require = ['nose >= 1.3.7', 'django >= 4.2.11'],
     classifiers = [
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",

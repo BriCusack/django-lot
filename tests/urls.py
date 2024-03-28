@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import patterns, include, url
+from django.urls import path, re_path, include
 
 from .tests import TestView
 
 
-urlpatterns = patterns("",
-    url(r"", include('lot.urls')),
-    url(r"^test_url/$", TestView.as_view()),
+urlpatterns = path("",
+    re_path(r"", include('lot.urls')),
+    re_path(r"^test_url/$", TestView.as_view()),
 )
