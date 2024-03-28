@@ -40,40 +40,45 @@ class LOTMiddleware(object):
                 lot.delete()
 
 
-class LOTAuthenticationMiddleware(object):
-    '''Authenticate using a Header'''
+class LOTAuthenticationMiddleware:
     def __init__(self, get_response):
-        self.get_response = get_response
+        self.get_response = get_response 
 
     def __call__(self, request):
-        return self.get_response(request)
-
-    def process_request(self, request):
+        # Incorporate your existing authentication logic
         try:
             token = request.META['HTTP_X_AUTH_TOKEN']
         except KeyError:
-            return None
+            return None  # No token, continue without authentication
 
         if not uuidRegex.match(token):
-            return None
+            return None  # Invalid token format
 
         try:
             lot = LOT.objects.select_related('user').get(uuid=token)
         except LOT.DoesNotExist:
-            return None
+            return None  # Token doesn't match a valid LOT
 
         if not lot.verify():
             if lot.delete_on_fail():
                 lot.delete()
-            return None
+            return None  # LOT verification failed
 
-        request.user = lot.user
+        request.user = lot.user  # Authenticate the user
 
         try:
             session_data = json.loads(lot.session_data)
             request.session.update(session_data)
-        except:
-            pass
+        except json.JSONDecodeError:  # Handle potential errors
+            pass  # Ignore if session_data is invalid
 
         if lot.is_one_time():
             lot.delete()
+
+        # Pass the request on to the next middleware or the view
+        response = self.get_response(request) 
+
+        # You can optionally add response modification here:
+        # ...
+
+        return response  
