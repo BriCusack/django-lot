@@ -12,7 +12,6 @@ setup(
     name = "django-lot",
     url = "https://github.com/jespino/django-lot",
     author = "Jesús Espino, Curtis Malone",
-    version = "1.0.0",
     author_email = "jespinog@gmail.com, curtis@tinbrain.net",
     version=':versiontools:lot:',
     packages = [
