@@ -12,6 +12,7 @@ setup(
     name = "django-lot",
     url = "https://github.com/jespino/django-lot",
     author = "Jesús Espino, Curtis Malone",
+    version = "1.0.0",
     author_email = "jespinog@gmail.com, curtis@tinbrain.net",
     version=':versiontools:lot:',
     packages = [
@@ -19,7 +20,7 @@ setup(
         "lot.migrations",
     ],
     description = description.strip(),
-    install_requires=['django >= 4.2.11', 'simplejson >= 3.19.2'],
+    install_requires=['django >= 4.2.11', 'simplejson >= 3.19.1'],
     setup_requires = [
         'versiontools >= 1.9.1',
     ],
