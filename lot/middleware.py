@@ -75,10 +75,3 @@ class LOTAuthenticationMiddleware:
         if lot.is_one_time():
             lot.delete()
 
-        # Pass the request on to the next middleware or the view
-        response = self.get_response(request) 
-
-        # You can optionally add response modification here:
-        # ...
-
-        return response  
